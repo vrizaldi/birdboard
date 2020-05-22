@@ -18,7 +18,19 @@ class ProjectsController extends Controller
             'description' => 'required',
         ]);
 
+        $attributes['owner_id'] = auth()->user()->id;
+        auth()->user()->projects()->create($attributes);
+
         Project::create($attributes);
         return redirect('/projects');
+    }
+
+    public function show(Project $project) {
+        if(auth()->user()->isNot($project->owner)) return abort(403);
+        return view('projects.show', ['project' => $project]);
+    }
+
+    public function create() {
+        return view('projects.create');
     }
 }
