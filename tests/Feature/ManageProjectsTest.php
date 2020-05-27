@@ -7,12 +7,12 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\User;
 
-class ProjectsTest extends TestCase
+class ManageProjectsTest extends TestCase
 {
     use WithFaker, RefreshDatabase;
 
     /** @test */
-    public function guest_cannot_view_manage_projects() {
+    public function guest_cannot_manage_projects() {
         $project = factory('App\Project')->create();
 
         $this->get('/projects')->assertRedirect('login');
